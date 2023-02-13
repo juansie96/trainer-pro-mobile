@@ -6,44 +6,64 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { AuthError, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { mapFirebaseErrorCodeToMsg } from "../../utils";
+import LoadingOverlay from "../../components/atoms/LoadingOverlay";
+import styles from "../../styles";
+import TransparentOverlay from "../../components/atoms/TransparentOverlay";
+import colors from "../../styles/colors";
 
 interface LoginForm {
   email: string;
   password: string;
 }
 const Login = () => {
-  const {
-    control,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm<LoginForm>({
+  const { control, handleSubmit, setValue } = useForm<LoginForm>({
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
+  const [isLoading, setIsLoading] = useState(false);
   const [loginError, setLoginError] = useState("");
 
   const onSubmit: SubmitHandler<LoginForm> = async ({
     email,
     password,
   }: LoginForm) => {
+    setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
       const error = err as AuthError;
       setLoginError(mapFirebaseErrorCodeToMsg(error.code));
       setValue("password", "");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div>
+    <View
+      style={{
+        ...styles.root,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 10,
+        backgroundColor: colors.grays[100],
+      }}
+    >
+      {isLoading && <TransparentOverlay />}
       <View style={{ marginVertical: 20, marginLeft: 10 }}>
-        <Text h2 numberOfLines={2} style={{ fontStyle: "italic" }}>
-          TrainerPro
+        <Text
+          h4
+          numberOfLines={2}
+          style={{
+            fontStyle: "italic",
+            color: colors.blue[100],
+            fontWeight: "700",
+          }}
+        >
+          TrainerPro - Login
         </Text>
       </View>
       {loginError && <Text style={{ color: "red" }}>{loginError}</Text>}
@@ -63,7 +83,7 @@ const Login = () => {
           <Input
             {...field}
             placeholder="email"
-            leftIcon={<MCI name="email" size={24} color="black" />}
+            leftIcon={<MCI name="email" size={24} color={colors.blue[100]} />}
             errorMessage={
               error ? error.message || "El campo es requerido" : undefined
             }
@@ -81,7 +101,7 @@ const Login = () => {
           <Input
             {...field}
             placeholder="Contraseña"
-            leftIcon={<MCI name="lock" size={24} color="black" />}
+            leftIcon={<MCI name="lock" size={24} color={colors.blue[100]} />}
             errorMessage={
               error ? error.message || "El campo es requerido" : undefined
             }
@@ -91,7 +111,7 @@ const Login = () => {
       />
 
       <Button title="Login" onPress={handleSubmit(onSubmit)} />
-    </div>
+    </View>
   );
 };
 
