@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Button, Input, Text } from "@rneui/base";
 import MCI from "@expo/vector-icons/MaterialCommunityIcons";
 import { View } from "react-native";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { AuthError, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
+import { mapFirebaseErrorCodeToMsg } from "../../utils";
 
 interface LoginForm {
   email: string;
@@ -13,6 +15,7 @@ const Login = () => {
   const {
     control,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<LoginForm>({
     defaultValues: {
@@ -21,25 +24,29 @@ const Login = () => {
     },
   });
 
+  const [loginError, setLoginError] = useState("");
+
   const onSubmit: SubmitHandler<LoginForm> = async ({
     email,
     password,
   }: LoginForm) => {
     try {
-      console.log(await signInWithEmailAndPassword(auth, email, password));
-    } catch (error) {
-      console.error(error);
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      const error = err as AuthError;
+      setLoginError(mapFirebaseErrorCodeToMsg(error.code));
+      setValue("password", "");
     }
   };
 
   return (
     <div>
-      <Text h1 numberOfLines={2} style={{ fontStyle: "italic" }}>
-        TrainerPro
-      </Text>
-      <View style={{ marginVertical: 20 }}>
-        <Text h4>Login</Text>
+      <View style={{ marginVertical: 20, marginLeft: 10 }}>
+        <Text h2 numberOfLines={2} style={{ fontStyle: "italic" }}>
+          TrainerPro
+        </Text>
       </View>
+      {loginError && <Text style={{ color: "red" }}>{loginError}</Text>}
 
       <Controller
         name="email"
@@ -78,6 +85,7 @@ const Login = () => {
             errorMessage={
               error ? error.message || "El campo es requerido" : undefined
             }
+            secureTextEntry={true}
           />
         )}
       />
