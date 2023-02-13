@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./screens/Home";
 import LoadingOverlay from "./components/atoms/LoadingOverlay";
+import Logout from "./components/atoms/Logout";
 
 export default function App() {
   const [user, loading] = useAuthState(auth);
@@ -20,7 +21,14 @@ export default function App() {
           />
         ) : user ? (
           <>
-            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{
+                headerTitle: "TrainerPro",
+                headerRight: () => <Logout />,
+              }}
+            />
           </>
         ) : (
           <>
