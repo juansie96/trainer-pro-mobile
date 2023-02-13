@@ -2,6 +2,8 @@ import { Button, Input, Text } from "@rneui/base";
 import MCI from "@expo/vector-icons/MaterialCommunityIcons";
 import { View } from "react-native";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
 
 interface LoginForm {
   email: string;
@@ -19,8 +21,15 @@ const Login = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<LoginForm> = (data: LoginForm) => {
-    console.log("data", data);
+  const onSubmit: SubmitHandler<LoginForm> = async ({
+    email,
+    password,
+  }: LoginForm) => {
+    try {
+      console.log(await signInWithEmailAndPassword(auth, email, password));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
