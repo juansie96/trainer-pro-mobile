@@ -6,7 +6,6 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { AuthError, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { mapFirebaseErrorCodeToMsg } from "../../utils";
-import LoadingOverlay from "../../components/atoms/LoadingOverlay";
 import styles from "../../styles";
 import TransparentOverlay from "../../components/atoms/TransparentOverlay";
 import colors from "../../styles/colors";
@@ -66,7 +65,7 @@ const Login = () => {
           TrainerPro - Login
         </Text>
       </View>
-      {loginError && <Text style={{ color: "red" }}>{loginError}</Text>}
+      {!!loginError ? <Text style={{ color: "red" }}>{loginError}</Text> : null}
 
       <Controller
         name="email"
