@@ -1,20 +1,34 @@
 import { Text } from "@rneui/base";
 import React from "react";
 import { TextStyle, View } from "react-native";
+import colors from "../../styles/colors";
 
-type IFontWeight =
+type ITypes =
+  | "thin"
+  | "thinItalic"
+  | "light"
+  | "lightItalic"
+  | "medium"
+  | "mediumItalic"
+  | "regular"
   | "bold"
-  | "400"
-  | "normal"
-  | "100"
-  | "200"
-  | "300"
-  | "500"
-  | "600"
-  | "700"
-  | "800"
-  | "900"
-  | undefined;
+  | "boldItalic"
+  | "black"
+  | "blackItalic";
+
+const FONT_TYPES = {
+  thin: "Roboto-Thin",
+  thinItalic: "Roboto-ThinItalic",
+  light: "Roboto-Light",
+  lightItalic: "Roboto-LightItalic",
+  medium: "Roboto-Medium",
+  mediumItalic: "Roboto-MediumItalic",
+  regular: "Roboto-Regular",
+  bold: "Roboto-Bold",
+  boldItalic: "Roboto-BoldItalic",
+  black: "Roboto-Black",
+  blackItalic: "Roboto-BlackItalic",
+};
 
 const TPText = ({
   fs,
@@ -26,6 +40,8 @@ const TPText = ({
   mr,
   ml,
   bold,
+  type,
+  gray,
   children,
   ...textStyles
 }: {
@@ -38,6 +54,8 @@ const TPText = ({
   mr?: number;
   ml?: number;
   bold?: boolean;
+  type?: ITypes;
+  gray?: boolean;
   children: React.ReactNode;
 } & TextStyle) => {
   return (
@@ -53,8 +71,10 @@ const TPText = ({
     >
       <Text
         style={{
-          fontWeight: fw ? (String(fw) as IFontWeight) : bold ? "700" : "400",
+          fontFamily: type ? FONT_TYPES[type] : "Roboto-Regular",
+          fontWeight: bold ? "700" : undefined,
           fontSize: fs ? fs : 16,
+          color: gray ? colors.gray[200] : undefined,
           ...textStyles,
         }}
       >

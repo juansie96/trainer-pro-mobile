@@ -4,10 +4,10 @@ import { useEffect } from "react";
 import TransparentOverlay from "../../components/atoms/TransparentOverlay";
 import SectionText from "../../components/atoms/SectionText";
 import TPText from "../../components/atoms/TPText";
-import colors from "../../styles/colors";
+import TaskCard from "../../components/molecules/TaskCard";
+
 const Home = () => {
   const { userData, isFetching, error, fetchUserData } = useUser();
-  console.log({ userData, isFetching, error });
 
   useEffect(() => {
     fetchUserData();
@@ -18,18 +18,21 @@ const Home = () => {
   }
   return (
     <View style={{ paddingHorizontal: 15, marginTop: 15, flex: 1 }}>
-      <TPText fs={22}>
+      <TPText fs={24} type="light">
         Bienvenido,{" "}
-        <TPText fs={22} bold>
+        <TPText fs={24} type="boldItalic">
           {userData?.name}
         </TPText>
       </TPText>
       <SectionText>Plan del día</SectionText>
       <View style={{ display: "flex", alignItems: "center" }}>
-        <TPText color={colors.gray[200]} textAlign="center" fs={16}>
+        {/* <TPText gray textAlign="center" fs={18}>
           No tienes planificación
           <br /> para hoy
-        </TPText>
+        </TPText> */}
+        <TaskCard />
+        <TaskCard />
+        <TaskCard />
       </View>
     </View>
   );
