@@ -48,7 +48,7 @@ const Login = () => {
         justifyContent: "center",
         alignItems: "center",
         padding: 10,
-        backgroundColor: colors.grays[100],
+        backgroundColor: colors.gray[100],
       }}
     >
       {isLoading && <TransparentOverlay />}
