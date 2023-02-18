@@ -8,7 +8,7 @@ export default StyleSheet.create({
   },
   root: {
     flex: 1,
-    backgroundColor: colors.grays[100],
+    backgroundColor: colors.gray[100],
   },
   overlay: {
     position: "absolute",
