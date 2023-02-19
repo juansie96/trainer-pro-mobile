@@ -52,7 +52,7 @@ const TaskCard = ({ task }: { task: GeneralTask }) => {
       >
         <View style={flexRowCenter}>
           {getTaskIcon(task)}
-          <View style={{ paddingLeft: 10, flexShrink: 1 }}>
+          <View style={{ paddingLeft: 15, flexShrink: 1 }}>
             <TPText fs={17} type="medium">
               {task.title.length < 28
                 ? task.title

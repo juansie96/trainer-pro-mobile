@@ -4,6 +4,9 @@ import Home from "./screens/Home";
 import Nutrition from "./screens/Nutrition";
 import Schedule from "./screens/Schedule";
 import colors from "./styles/colors";
+import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,7 +23,28 @@ const headerOptions = {
 
 function AppTabs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          if (route.name === "Home") {
+            return <SimpleLineIcons name="home" size={size} color={color} />;
+          } else if (route.name === "Agenda") {
+            return <FontAwesome name="calendar" size={size} color={color} />;
+          } else if (route.name === "Nutrición") {
+            return (
+              <MaterialCommunityIcons
+                name="food-drumstick-outline"
+                size={size}
+                color={color}
+              />
+            );
+          }
+          return null;
+        },
+        tabBarActiveTintColor: colors.blue[100],
+        tabBarInactiveTintColor: "gray",
+      })}
+    >
       <Tab.Screen name="Home" component={Home} options={headerOptions} />
       <Tab.Screen name="Agenda" component={Schedule} options={headerOptions} />
       <Tab.Screen
