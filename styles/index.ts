@@ -25,4 +25,8 @@ export default StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
   },
+  flexRowCenter: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
 });

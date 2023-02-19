@@ -8,6 +8,7 @@ import { UserContextProvider } from "./hooks/useUser";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase/firebase";
 import { useFonts } from "expo-font";
+import colors from "./styles/colors";
 export { useUser } from "./hooks";
 
 export default function App() {
@@ -43,6 +44,12 @@ export default function App() {
               component={Home}
               options={{
                 headerTitle: "TP",
+                headerTitleStyle: {
+                  color: colors.white[100],
+                },
+                headerStyle: {
+                  backgroundColor: colors.blue[100],
+                },
                 headerRight: () => <Logout />,
               }}
             />

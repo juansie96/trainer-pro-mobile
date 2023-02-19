@@ -6,14 +6,14 @@ import { auth } from "../firebase/firebase";
 import { Client } from "../types/client";
 
 interface IUserContext {
-  userData: Client | null;
+  user: Client | null;
   isFetching: boolean;
   error: boolean;
   fetchUserData(): void;
 }
 
 const UserContext = createContext<IUserContext>({
-  userData: null,
+  user: null,
   isFetching: false,
   error: false,
   fetchUserData: () => null,
@@ -43,7 +43,7 @@ export const UserContextProvider = ({
 
   return (
     <UserContext.Provider
-      value={{ userData, isFetching: isLoading, error, fetchUserData }}
+      value={{ user: userData, isFetching: isLoading, error, fetchUserData }}
     >
       {children}
     </UserContext.Provider>
