@@ -1,7 +1,9 @@
 import { Text } from "@rneui/base";
+import { useFonts } from "expo-font";
 import React from "react";
 import { TextStyle, View } from "react-native";
 import colors from "../../styles/colors";
+import fonts from "../../utils/fonts";
 
 type ITypes =
   | "thin"
@@ -58,6 +60,7 @@ const TPText = ({
   gray?: boolean;
   children: React.ReactNode;
 } & TextStyle) => {
+  const [fontsLoaded] = useFonts(fonts);
   return (
     <View
       style={{

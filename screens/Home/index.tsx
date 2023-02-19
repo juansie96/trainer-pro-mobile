@@ -6,6 +6,7 @@ import SectionText from "../../components/atoms/SectionText";
 import TPText from "../../components/atoms/TPText";
 import TaskCard from "../../components/molecules/TaskCard";
 import dayjs from "dayjs";
+import { Text } from "@rneui/themed";
 
 const Home = () => {
   const { user, isFetching, error, fetchUserData } = useUser();
