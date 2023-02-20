@@ -25,11 +25,13 @@ const Home = () => {
     );
   }
 
-  const todayTasks = user.tasks.filter(
-    (t) =>
-      dayjs(t.date).format("DD/MM/YYYY") ===
-      dayjs(new Date()).format("DD/MM/YYYY")
-  );
+  const todayTasks = user.tasks
+    ? user.tasks.filter(
+        (t) =>
+          dayjs(t.date).format("DD/MM/YYYY") ===
+          dayjs(new Date()).format("DD/MM/YYYY")
+      )
+    : null;
 
   return (
     <View style={{ paddingHorizontal: 15, marginTop: 15, flex: 1 }}>
@@ -41,7 +43,7 @@ const Home = () => {
       </TPText>
       <SectionText>Plan del día</SectionText>
       <View style={{ display: "flex", alignItems: "center" }}>
-        {todayTasks.length > 0 ? (
+        {todayTasks && todayTasks.length > 0 ? (
           todayTasks.map((task) => <TaskCard key={task.id} task={task} />)
         ) : (
           <TPText gray textAlign="center" fs={18}>
