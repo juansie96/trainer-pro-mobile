@@ -41,6 +41,7 @@ const TPText = ({
   mb,
   mr,
   ml,
+  m,
   bold,
   type,
   gray,
@@ -55,6 +56,7 @@ const TPText = ({
   mb?: number;
   mr?: number;
   ml?: number;
+  m?: number;
   bold?: boolean;
   type?: ITypes;
   gray?: boolean;
@@ -70,6 +72,7 @@ const TPText = ({
         marginBottom: mb || undefined,
         marginLeft: ml || undefined,
         marginRight: mr || undefined,
+        margin: m || undefined,
       }}
     >
       <Text
