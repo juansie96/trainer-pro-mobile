@@ -7,6 +7,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "./firebase/firebase";
 export { useUser } from "./hooks";
 import AppTabs from "./AppTabs";
+import Workout from "./screens/Workout";
+import MealPlan from "./screens/MealPlan";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -22,11 +24,15 @@ export default function App() {
               component={LoadingOverlay}
             />
           ) : session ? (
-            <Stack.Screen
-              name="AppTabs"
-              component={AppTabs}
-              options={{ headerShown: false }}
-            />
+            <>
+              <Stack.Screen
+                name="AppTabs"
+                component={AppTabs}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen name="Workout" component={Workout} />
+              <Stack.Screen name="MealPlan" component={MealPlan} />
+            </>
           ) : (
             <Stack.Screen
               name="Login"

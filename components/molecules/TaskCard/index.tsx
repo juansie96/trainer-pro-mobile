@@ -4,16 +4,18 @@ import colors from "../../../styles/colors";
 import MCI from "@expo/vector-icons/MaterialCommunityIcons";
 import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import TPText from "../../atoms/TPText";
 import styles from "../../../styles";
 import { GeneralTask } from "../../../types/task";
+import { useNavigation } from "@react-navigation/native";
 
 const getDescription = (task: GeneralTask) => {
   switch (task.type) {
     case "cardio":
       return task.distance;
     case "mealPlan":
-      return;
+      return "¿Qué hay de comer?";
     case "workout":
       return "";
   }
@@ -24,13 +26,24 @@ const getTaskIcon = (task: GeneralTask) => {
     case "cardio":
       return <FontAwesome name="heartbeat" size={24} />;
     case "mealPlan":
-      return <MCI name="dumbbell" size={28} />;
+      return <MaterialCommunityIcons name="food-drumstick-outline" size={28} />;
     case "workout":
       return <MCI name="dumbbell" size={28} />;
   }
 };
 
+const getTaskRoute = (task: GeneralTask): never => {
+  switch (task.type) {
+    case "mealPlan":
+      return "MealPlan" as never;
+    case "workout":
+      return "Workout" as never;
+  }
+  return "" as never;
+};
+
 const TaskCard = ({ task }: { task: GeneralTask }) => {
+  const navigation = useNavigation<any>();
   const { flexRowCenter, boxShadow } = styles;
   return (
     <View
@@ -63,7 +76,17 @@ const TaskCard = ({ task }: { task: GeneralTask }) => {
             </TPText>
           </View>
         </View>
-        <Entypo name="chevron-thin-right" size={28} />
+        {!(task.type === "cardio") && (
+          <Entypo
+            name="chevron-thin-right"
+            size={28}
+            onPress={() =>
+              navigation.navigate(getTaskRoute(task), {
+                entityId: task.entityId,
+              })
+            }
+          />
+        )}
       </View>
     </View>
   );

@@ -6,7 +6,6 @@ import SectionText from "../../components/atoms/SectionText";
 import TPText from "../../components/atoms/TPText";
 import TaskCard from "../../components/molecules/TaskCard";
 import dayjs from "dayjs";
-import { Text } from "@rneui/themed";
 
 const Home = () => {
   const { user, isFetching, error, fetchUserData } = useUser();
@@ -32,8 +31,6 @@ const Home = () => {
       dayjs(new Date()).format("DD/MM/YYYY")
   );
 
-  console.log(user.tasks);
-  console.log(todayTasks);
   return (
     <View style={{ paddingHorizontal: 15, marginTop: 15, flex: 1 }}>
       <TPText fs={24} type="light">
