@@ -1,5 +1,6 @@
-import { getDocs, query, where } from "firebase/firestore";
-import { clientsRef } from "./refs";
+import { getDoc, getDocs, query, where } from "firebase/firestore";
+import { Workout } from "../types/workout";
+import { clientsRef, getDocumentRef } from "./refs";
 
 export const getUserData = async (email: string) => {
   const querySnapshot = await getDocs(
@@ -10,3 +11,6 @@ export const getUserData = async (email: string) => {
   }
   return querySnapshot.docs[0].data();
 };
+
+export const getWorkout = (id: string) =>
+  getDoc<Workout>(getDocumentRef("workouts", id));
