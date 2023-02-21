@@ -28,5 +28,15 @@ export default StyleSheet.create({
   flexRowCenter: {
     flexDirection: "row",
     alignItems: "center",
+    flexShrink: 1,
+  },
+  flexRowBetweenCenter: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexShrink: 1,
+  },
+  stackBetween: {
+    justifyContent: "space-between",
   },
 });

@@ -13,4 +13,6 @@ export const getUserData = async (email: string) => {
 };
 
 export const getWorkout = (id: string) =>
-  getDoc<Workout>(getDocumentRef("workouts", id));
+  getDoc<Workout>(getDocumentRef("workouts", id)).then((snapshot) =>
+    snapshot.data()
+  );

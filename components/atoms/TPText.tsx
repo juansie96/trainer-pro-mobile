@@ -73,6 +73,7 @@ const TPText = ({
         marginLeft: ml || undefined,
         marginRight: mr || undefined,
         margin: m || undefined,
+        flexShrink: 1,
       }}
     >
       <Text
