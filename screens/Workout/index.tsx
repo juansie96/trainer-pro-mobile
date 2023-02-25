@@ -8,18 +8,8 @@ import styles from "../../styles";
 import { Exercise, Workout } from "../../types/workout";
 import Entypo from "@expo/vector-icons/Entypo";
 import colors from "../../styles/colors";
-
-export const extractVideoID = (videoUrl: string) => {
-  if (videoUrl.includes("v=")) {
-    const videoId = videoUrl.split("v=")[1];
-    const ampersandPosition = videoId.indexOf("&");
-    return ampersandPosition !== -1
-      ? videoId.substring(0, ampersandPosition)
-      : videoId;
-  } else {
-    return "";
-  }
-};
+import { useNavigation } from "@react-navigation/native";
+import { extractVideoID } from "../../utils";
 
 export function getExerciseImgUrl(exercise: Exercise): string {
   if (exercise.videoUrl && exercise.videoUrl.length > 0) {
@@ -36,6 +26,7 @@ const WorkoutScreen = ({ route }: { route: any }) => {
   const { entityId } = route.params;
   const [workout, setWorkout] = useState<Workout | undefined>();
   const [loading, setLoading] = useState(false);
+  const navigation = useNavigation<any>();
 
   useEffect(() => {
     setLoading(true);
@@ -61,7 +52,6 @@ const WorkoutScreen = ({ route }: { route: any }) => {
         </TPText>
       </View>
       {workout.workoutExercises.map((exercise, i) => {
-        console.log(exercise.exerciseId);
         return (
           <Fragment key={exercise.exerciseId + i}>
             <View style={flexRowBetweenCenter}>
@@ -93,8 +83,12 @@ const WorkoutScreen = ({ route }: { route: any }) => {
               <Entypo
                 name="chevron-thin-right"
                 size={28}
-                onPress={() => null}
                 style={{ marginRight: 12 }}
+                onPress={() =>
+                  navigation.navigate("Exercise" as never, {
+                    exercise,
+                  })
+                }
               />
             </View>
             <View

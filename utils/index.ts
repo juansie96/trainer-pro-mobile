@@ -8,3 +8,15 @@ export function mapFirebaseErrorCodeToMsg(errorCode: string): string {
       return "Ocurrió un error inesperado, por favor intente nuevamente";
   }
 }
+
+export const extractVideoID = (videoUrl: string) => {
+  if (videoUrl.includes("v=")) {
+    const videoId = videoUrl.split("v=")[1];
+    const ampersandPosition = videoId.indexOf("&");
+    return ampersandPosition !== -1
+      ? videoId.substring(0, ampersandPosition)
+      : videoId;
+  } else {
+    return "";
+  }
+};

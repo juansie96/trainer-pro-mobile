@@ -9,6 +9,7 @@ export { useUser } from "./hooks";
 import AppTabs from "./AppTabs";
 import Workout from "./screens/Workout";
 import MealPlan from "./screens/MealPlan";
+import Exercise from "./screens/Exercise";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -32,6 +33,7 @@ export default function App() {
               />
               <Stack.Screen name="Workout" component={Workout} />
               <Stack.Screen name="MealPlan" component={MealPlan} />
+              <Stack.Screen name="Exercise" component={Exercise} />
             </>
           ) : (
             <Stack.Screen
