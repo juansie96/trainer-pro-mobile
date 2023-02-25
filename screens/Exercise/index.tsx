@@ -9,7 +9,6 @@ import { WorkoutExercise } from "../../types/workout";
 
 const Exercise = ({ route }: { route: any }) => {
   const { exercise } = route.params as { exercise: WorkoutExercise };
-  console.log(exercise);
   return (
     <View>
       <TPText fs={35} type="medium" padding={15}>
