@@ -9,17 +9,7 @@ import TPText from "../../atoms/TPText";
 import styles from "../../../styles";
 import { GeneralTask } from "../../../types/task";
 import { useNavigation } from "@react-navigation/native";
-
-const getDescription = (task: GeneralTask) => {
-  switch (task.type) {
-    case "cardio":
-      return task.distance;
-    case "mealPlan":
-      return "¿Qué hay de comer?";
-    case "workout":
-      return "";
-  }
-};
+import { MealPlan } from "../../../types/meal";
 
 const getTaskIcon = (task: GeneralTask) => {
   switch (task.type) {
@@ -42,9 +32,31 @@ const getTaskRoute = (task: GeneralTask): never => {
   return "" as never;
 };
 
-const TaskCard = ({ task }: { task: GeneralTask }) => {
+const TaskCard = ({
+  task,
+  entity,
+}: {
+  task: GeneralTask;
+  entity?: MealPlan;
+}) => {
   const navigation = useNavigation<any>();
   const { flexRowCenter, boxShadow } = styles;
+
+  const getDescription = () => {
+    switch (task.type) {
+      case "cardio":
+        return task.distance;
+      case "mealPlan":
+        return entity
+          ? `${entity.meals.length} comida${
+              entity.meals.length === 1 ? "" : "s"
+            }`
+          : "¿Qué hay de comer?";
+      case "workout":
+        return "";
+    }
+  };
+
   return (
     <View
       style={{
@@ -67,12 +79,14 @@ const TaskCard = ({ task }: { task: GeneralTask }) => {
           {getTaskIcon(task)}
           <View style={{ paddingLeft: 15, flexShrink: 1 }}>
             <TPText fs={17} type="medium">
-              {task.title.length < 28
+              {entity
+                ? entity.name
+                : task.title.length < 28
                 ? task.title
                 : task.title.slice(0, 28) + "..."}
             </TPText>
             <TPText mt={5} fs={16} type="lightItalic">
-              {getDescription(task)}
+              {getDescription()}
             </TPText>
           </View>
         </View>

@@ -6,6 +6,7 @@ import {
   WithFieldValue,
 } from "firebase/firestore";
 import { Client } from "../types/client";
+import { MealPlan } from "../types/meal";
 import { Exercise, Workout } from "../types/workout";
 
 export const clientConverter: FirestoreDataConverter<Client> = {
@@ -60,16 +61,29 @@ export const exerciseConverter: FirestoreDataConverter<Exercise> = {
   },
 };
 
+export const mealPlanConverter: FirestoreDataConverter<MealPlan> = {
+  toFirestore(mealPlan: WithFieldValue<MealPlan>): DocumentData {
+    return mealPlan;
+  },
+  fromFirestore(
+    snapshot: QueryDocumentSnapshot<MealPlan>,
+    options: SnapshotOptions
+  ): MealPlan {
+    const data = snapshot.data(options);
+    return { ...data, id: snapshot.id };
+  },
+};
+
 export function getConverter(table: string) {
   switch (table) {
     case "exercises":
       return exerciseConverter;
     case "workouts":
       return workoutConverter;
+    case "mealPlans":
+      return mealPlanConverter;
     // case "trainers":
     //   return trainerConverter;
-    // case "mealPlans":
-    //   return mealPlanConverter;
     // case "foods":
     //   return foodConverter;
   }
