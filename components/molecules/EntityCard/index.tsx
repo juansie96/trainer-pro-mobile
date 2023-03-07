@@ -2,7 +2,7 @@ import { Image } from "@rneui/base";
 import { View } from "react-native";
 import styles from "../../../styles";
 import colors from "../../../styles/colors";
-import { MealPlan } from "../../../types/meal";
+import { Food, Meal, MealPlan } from "../../../types/meal";
 import { Exercise, WorkoutExercise } from "../../../types/workout";
 import TPText from "../../atoms/TPText";
 import Entypo from "@expo/vector-icons/Entypo";
@@ -21,6 +21,12 @@ interface MealPlanEntity {
   onPress: () => void;
 }
 
+interface FoodEntity {
+  type: "food";
+  data: Food;
+  onPress: () => void;
+}
+
 export function getExerciseImgUrl(exercise: Exercise): string {
   if (exercise.videoUrl && exercise.videoUrl.length > 0) {
     const videoId = extractVideoID(exercise.videoUrl);
@@ -35,7 +41,7 @@ export function getExerciseImgUrl(exercise: Exercise): string {
 const EntityCard = ({
   entity,
 }: {
-  entity: ExerciseEntity | MealPlanEntity;
+  entity: ExerciseEntity | MealPlanEntity | FoodEntity;
 }) => {
   const { flexRowBetweenCenter, flexRowCenter } = styles;
   const { type, data } = entity;
@@ -48,18 +54,39 @@ const EntityCard = ({
         return "wa";
     }
   };
+
+  const getBottomInfo = () => {
+    switch (type) {
+      case "exercise":
+        return data.objective;
+      case "mealPlan":
+        return `${data.meals.length} comida${
+          data.meals.length === 1 ? "" : "s"
+        }`;
+      case "food":
+        return "ToDo bitch";
+    }
+  };
+
   return (
     <Fragment>
-      <View style={flexRowBetweenCenter}>
+      <View
+        style={{
+          ...flexRowBetweenCenter,
+          backgroundColor: type === "food" ? "#fff" : "inherit",
+        }}
+      >
         <View style={flexRowCenter}>
-          <Image
-            source={
-              type === "mealPlan"
-                ? require("../../../assets/images/nutrition.webp")
-                : { uri: getImageUrl() }
-            }
-            style={{ width: 100, height: 100 }}
-          />
+          {type !== "food" && (
+            <Image
+              source={
+                type === "mealPlan"
+                  ? require("../../../assets/images/nutrition.webp")
+                  : { uri: getImageUrl() }
+              }
+              style={{ width: 100, height: 100 }}
+            />
+          )}
           <View
             style={{
               flex: 1,
@@ -68,17 +95,14 @@ const EntityCard = ({
               paddingLeft: 12,
               paddingRight: 7,
               paddingVertical: 10,
+              minHeight: 100,
             }}
           >
             <TPText fs={18} type="light">
               {data.name}
             </TPText>
             <TPText fs={14} type="medium" color={colors.gray[200]}>
-              {type === "exercise"
-                ? data.objective
-                : `${data.meals.length} comida${
-                    data.meals.length === 1 ? "" : "s"
-                  }`}
+              {getBottomInfo()}
             </TPText>
           </View>
         </View>

@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import SectionText from "../../components/atoms/SectionText";
 import TPText from "../../components/atoms/TPText";
 import { useUser } from "../../hooks";
@@ -31,7 +31,7 @@ const Nutrition = () => {
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <ScrollView style={{ flex: 1 }}>
       <View style={{ paddingHorizontal: 15 }}>
         <SectionText>Nutrición</SectionText>
         <TPText fs={22} type="medium">
@@ -66,15 +66,15 @@ const Nutrition = () => {
                 type: "mealPlan",
                 data: mealPlan,
                 onPress: () =>
-                  navigation.navigate("Exercise" as never, {
-                    mealPlan,
+                  navigation.navigate("MealPlan" as never, {
+                    data: mealPlan,
                   }),
               }}
             />
           );
         })}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

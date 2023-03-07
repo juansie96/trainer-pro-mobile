@@ -1,4 +1,5 @@
 import { getDoc, getDocs, query, where } from "firebase/firestore";
+import { MealPlan } from "../types/meal";
 import { Workout } from "../types/workout";
 import { clientsRef, getDocumentRef, mealPlansRef } from "./refs";
 
@@ -14,6 +15,11 @@ export const getUserData = async (email: string) => {
 
 export const getWorkout = (id: string) =>
   getDoc<Workout>(getDocumentRef("workouts", id)).then((snapshot) =>
+    snapshot.data()
+  );
+
+export const getMealPlan = (id: string) =>
+  getDoc<MealPlan>(getDocumentRef("mealPlans", id)).then((snapshot) =>
     snapshot.data()
   );
 

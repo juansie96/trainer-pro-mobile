@@ -97,6 +97,7 @@ const TaskCard = ({
             onPress={() =>
               navigation.navigate(getTaskRoute(task), {
                 entityId: task.entityId,
+                data: entity,
               })
             }
           />
