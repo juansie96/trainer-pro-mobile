@@ -64,7 +64,7 @@ const EntityCard = ({
           data.meals.length === 1 ? "" : "s"
         }`;
       case "food":
-        return "ToDo bitch";
+        return entity.data.grams + ' g';
     }
   };
 
@@ -106,12 +106,13 @@ const EntityCard = ({
             </TPText>
           </View>
         </View>
-        <Entypo
+
+        {entity.type !== 'food' && <Entypo
           name="chevron-thin-right"
           size={28}
           style={{ marginRight: 12 }}
           onPress={entity.onPress}
-        />
+        />}
       </View>
       <View
         style={{

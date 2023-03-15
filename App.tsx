@@ -10,10 +10,24 @@ import AppTabs from "./AppTabs";
 import Workout from "./screens/Workout";
 import MealPlan from "./screens/MealPlan";
 import Exercise from "./screens/Exercise";
+import colors from "./styles/colors";
+import Logout from "./components/atoms/Logout";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   const [session, isSessionLoading] = useAuthState(auth);
+
+  const getStyledHeader = (title: string) => ({
+    headerTitle: title,
+    headerTitleStyle: {
+      color: colors.white[100],
+    },
+    headerStyle: {
+      backgroundColor: colors.blue[100],
+    },
+    headerTintColor: colors.white[100]
+  })
+
   return (
     <UserContextProvider>
       <NavigationContainer>
@@ -31,9 +45,9 @@ export default function App() {
                 component={AppTabs}
                 options={{ headerShown: false }}
               />
-              <Stack.Screen name="Workout" component={Workout} />
-              <Stack.Screen name="MealPlan" component={MealPlan} />
-              <Stack.Screen name="Exercise" component={Exercise} />
+              <Stack.Screen name="Workout" component={Workout} options={getStyledHeader('Rutina')}/>
+              <Stack.Screen name="MealPlan" component={MealPlan} options={getStyledHeader('Plan Nutricional')}/>
+              <Stack.Screen name="Exercise" component={Exercise} options={getStyledHeader('Ejercicio')} />
             </>
           ) : (
             <Stack.Screen
