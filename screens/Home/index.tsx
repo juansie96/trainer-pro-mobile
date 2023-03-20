@@ -27,10 +27,10 @@ const Home = () => {
 
   const todayTasks = user.tasks
     ? user.tasks.filter(
-        (t) =>
-          dayjs(t.date).format("DD/MM/YYYY") ===
+      (t) =>
+        dayjs(t.date).format("DD/MM/YYYY") ===
           dayjs(new Date()).format("DD/MM/YYYY")
-      )
+    )
     : null;
 
   return (
