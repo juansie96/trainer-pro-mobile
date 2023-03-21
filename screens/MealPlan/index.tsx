@@ -60,7 +60,7 @@ const MealPlanScreen = ({ route }: { route: any }) => {
       <TPText fs={16} type="light">
         {" " +
           getTotalNV(nvKey as NutritionalValueKeys, mealPlan.meals).toFixed(
-            2
+            0
           )}{" "}
         {nvKey === "kcal" ? "kcal" : "g"}
       </TPText>

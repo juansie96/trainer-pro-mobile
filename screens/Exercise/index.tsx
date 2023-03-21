@@ -38,7 +38,7 @@ const Exercise = ({ route }: { route: any }) => {
         <View style={{ marginTop: 5, ...styles.flexRowCenter }}>
           <Fontisto name="stopwatch" size={22} style={{ marginRight: 5 }} />
           <TPText fs={18} type="light">
-            {exercise.rest}''
+            {exercise.rest}'' de descanso
           </TPText>
         </View>
       </View>

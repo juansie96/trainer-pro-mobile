@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useUser } from "../../hooks";
 import { useEffect } from "react";
 import TransparentOverlay from "../../components/atoms/TransparentOverlay";
@@ -27,10 +27,10 @@ const Home = () => {
 
   const todayTasks = user.tasks
     ? user.tasks.filter(
-      (t) =>
-        dayjs(t.date).format("DD/MM/YYYY") ===
+        (t) =>
+          dayjs(t.date).format("DD/MM/YYYY") ===
           dayjs(new Date()).format("DD/MM/YYYY")
-    )
+      )
     : null;
 
   return (
@@ -42,7 +42,12 @@ const Home = () => {
         </TPText>
       </TPText>
       <SectionText>Plan del día</SectionText>
-      <View style={{ display: "flex", alignItems: "center" }}>
+      <ScrollView
+        contentContainerStyle={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
         {todayTasks && todayTasks.length > 0 ? (
           todayTasks.map((task) => <TaskCard key={task.id} task={task} />)
         ) : (
@@ -51,7 +56,7 @@ const Home = () => {
             <br /> para hoy
           </TPText>
         )}
-      </View>
+      </ScrollView>
     </View>
   );
 };
