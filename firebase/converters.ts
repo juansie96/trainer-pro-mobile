@@ -7,6 +7,7 @@ import {
 } from "firebase/firestore";
 import { Client } from "../types/client";
 import { MealPlan } from "../types/meal";
+import { IMetrics } from "../types/metrics";
 import { Exercise, Workout } from "../types/workout";
 
 export const clientConverter: FirestoreDataConverter<Client> = {
@@ -69,6 +70,19 @@ export const mealPlanConverter: FirestoreDataConverter<MealPlan> = {
     snapshot: QueryDocumentSnapshot<MealPlan>,
     options: SnapshotOptions
   ): MealPlan {
+    const data = snapshot.data(options);
+    return { ...data, id: snapshot.id };
+  },
+};
+
+export const metricsConverter: FirestoreDataConverter<IMetrics> = {
+  toFirestore(metrics: WithFieldValue<IMetrics>): DocumentData {
+    return metrics;
+  },
+  fromFirestore(
+    snapshot: QueryDocumentSnapshot<IMetrics>,
+    options: SnapshotOptions
+  ): IMetrics {
     const data = snapshot.data(options);
     return { ...data, id: snapshot.id };
   },

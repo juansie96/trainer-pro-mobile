@@ -7,6 +7,8 @@ import colors from "./styles/colors";
 import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import Octicons from "@expo/vector-icons/Octicons";
+import Evolution from "./screens/Evolution";
 
 const Tab = createBottomTabNavigator();
 
@@ -39,7 +41,7 @@ function AppTabs() {
               />
             );
           }
-          return null;
+          return <Octicons name="graph" size={size} color={color} />;
         },
         tabBarActiveTintColor: colors.blue[100],
         tabBarInactiveTintColor: "gray",
@@ -50,6 +52,11 @@ function AppTabs() {
       <Tab.Screen
         name="Nutrición"
         component={Nutrition}
+        options={headerOptions}
+      />
+      <Tab.Screen
+        name="Evolución"
+        component={Evolution}
         options={headerOptions}
       />
     </Tab.Navigator>

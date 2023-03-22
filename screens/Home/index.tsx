@@ -8,7 +8,7 @@ import TaskCard from "../../components/molecules/TaskCard";
 import dayjs from "dayjs";
 
 const Home = () => {
-  const { user, isFetching, error, fetchUserData } = useUser();
+  const { user, isFetching, fetchUserData } = useUser();
   useEffect(() => {
     fetchUserData();
   }, []);

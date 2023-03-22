@@ -1,7 +1,7 @@
 import { getDoc, getDocs, query, where } from "firebase/firestore";
 import { MealPlan } from "../types/meal";
 import { Workout } from "../types/workout";
-import { clientsRef, getDocumentRef, mealPlansRef } from "./refs";
+import { clientsRef, getDocumentRef, mealPlansRef, metricsRef } from "./refs";
 
 export const getUserData = async (email: string) => {
   const querySnapshot = await getDocs(
@@ -25,3 +25,6 @@ export const getMealPlan = (id: string) =>
 
 export const clientAssignedMealPlansQuery = (clientId: string) =>
   query(mealPlansRef, where("clientId", "==", clientId));
+
+export const userMetricsQuery = (userId: string) =>
+  query(metricsRef, where("userId", "==", userId));

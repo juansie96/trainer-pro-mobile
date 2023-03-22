@@ -12,6 +12,7 @@ import MealPlan from "./screens/MealPlan";
 import Exercise from "./screens/Exercise";
 import colors from "./styles/colors";
 import Logout from "./components/atoms/Logout";
+import RegisterMetricsForm from "./screens/RegisterMetricsForm";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -25,8 +26,8 @@ export default function App() {
     headerStyle: {
       backgroundColor: colors.blue[100],
     },
-    headerTintColor: colors.white[100]
-  })
+    headerTintColor: colors.white[100],
+  });
 
   return (
     <UserContextProvider>
@@ -45,9 +46,26 @@ export default function App() {
                 component={AppTabs}
                 options={{ headerShown: false }}
               />
-              <Stack.Screen name="Workout" component={Workout} options={getStyledHeader('Rutina')}/>
-              <Stack.Screen name="MealPlan" component={MealPlan} options={getStyledHeader('Plan Nutricional')}/>
-              <Stack.Screen name="Exercise" component={Exercise} options={getStyledHeader('Ejercicio')} />
+              <Stack.Screen
+                name="Workout"
+                component={Workout}
+                options={getStyledHeader("Rutina")}
+              />
+              <Stack.Screen
+                name="MealPlan"
+                component={MealPlan}
+                options={getStyledHeader("Plan Nutricional")}
+              />
+              <Stack.Screen
+                name="Exercise"
+                component={Exercise}
+                options={getStyledHeader("Ejercicio")}
+              />
+              <Stack.Screen
+                name="RegisterMetricsForm"
+                component={RegisterMetricsForm}
+                options={getStyledHeader("Registrar Métricas")}
+              />
             </>
           ) : (
             <Stack.Screen

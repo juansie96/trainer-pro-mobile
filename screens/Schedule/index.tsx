@@ -7,7 +7,7 @@ import { useUser } from "../../hooks";
 import dayjs from "dayjs";
 import TaskCard from "../../components/molecules/TaskCard";
 
-const months = [
+export const months = [
   "Ene",
   "Feb",
   "Mar",
@@ -63,7 +63,7 @@ const Schedule = () => {
   return (
     <ScrollView style={{ flex: 1 }}>
       <View style={{ paddingHorizontal: 15 }}>
-        <SectionText>Nutrición</SectionText>
+        <SectionText>Agenda</SectionText>
         <View
           style={{
             alignItems: "center",

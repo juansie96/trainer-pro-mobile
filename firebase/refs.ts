@@ -5,6 +5,7 @@ import {
   getConverter,
   mealPlanConverter,
   workoutConverter,
+  metricsConverter,
 } from "./converters";
 import { firestoreDB } from "./firebase";
 
@@ -19,6 +20,9 @@ export const exercisesRef = collection(firestoreDB, "exercises").withConverter(
 );
 export const mealPlansRef = collection(firestoreDB, "mealPlans").withConverter(
   mealPlanConverter
+);
+export const metricsRef = collection(firestoreDB, "metrics").withConverter(
+  metricsConverter
 );
 
 export const getDocumentRef = (table: string, id: string) =>
