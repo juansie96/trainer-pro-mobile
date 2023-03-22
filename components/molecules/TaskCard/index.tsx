@@ -12,21 +12,23 @@ import { MealPlan } from "../../../types/meal";
 
 const getTaskIcon = (task: GeneralTask) => {
   switch (task.type) {
-  case "cardio":
-    return <FontAwesome name="heartbeat" size={24} />;
-  case "mealPlan":
-    return <MaterialCommunityIcons name="food-drumstick-outline" size={28} />;
-  case "workout":
-    return <MCI name="dumbbell" size={28} />;
+    case "cardio":
+      return <FontAwesome name="heartbeat" size={24} />;
+    case "mealPlan":
+      return <MaterialCommunityIcons name="food-drumstick-outline" size={28} />;
+    case "workout":
+      return <MCI name="dumbbell" size={28} />;
   }
 };
 
 const getTaskRoute = (task: GeneralTask): never => {
   switch (task.type) {
-  case "mealPlan":
-    return "MealPlan" as never;
-  case "workout":
-    return "Workout" as never;
+    case "mealPlan":
+      return "MealPlan" as never;
+    case "workout":
+      return "Workout" as never;
+    case "cardio":
+      return "Cardio" as never;
   }
   return "" as never;
 };
@@ -43,16 +45,16 @@ const TaskCard = ({
 
   const getDescription = () => {
     switch (task.type) {
-    case "cardio":
-      return task.distance;
-    case "mealPlan":
-      return entity
-        ? `${entity.meals.length} comida${
-          entity.meals.length === 1 ? "" : "s"
-        }`
-        : "¿Qué hay de comer?";
-    case "workout":
-      return "";
+      case "cardio":
+        return task.distance;
+      case "mealPlan":
+        return entity
+          ? `${entity.meals.length} comida${
+              entity.meals.length === 1 ? "" : "s"
+            }`
+          : "¿Qué hay de comer?";
+      case "workout":
+        return "";
     }
   };
 
@@ -81,15 +83,15 @@ const TaskCard = ({
               {entity
                 ? entity.name
                 : task.title.length < 28
-                  ? task.title
-                  : task.title.slice(0, 28) + "..."}
+                ? task.title
+                : task.title.slice(0, 28) + "..."}
             </TPText>
             <TPText mt={5} fs={16} type="lightItalic">
               {getDescription()}
             </TPText>
           </View>
         </View>
-        {!(task.type === "cardio") && (
+        {
           <Entypo
             name="chevron-thin-right"
             size={28}
@@ -97,10 +99,11 @@ const TaskCard = ({
               navigation.navigate(getTaskRoute(task), {
                 entityId: task.entityId,
                 data: entity,
+                task: task,
               })
             }
           />
-        )}
+        }
       </View>
     </View>
   );

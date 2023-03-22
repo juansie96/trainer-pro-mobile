@@ -13,6 +13,7 @@ import Exercise from "./screens/Exercise";
 import colors from "./styles/colors";
 import Logout from "./components/atoms/Logout";
 import RegisterMetricsForm from "./screens/RegisterMetricsForm";
+import Cardio from "./screens/Cardio";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -60,6 +61,11 @@ export default function App() {
                 name="Exercise"
                 component={Exercise}
                 options={getStyledHeader("Ejercicio")}
+              />
+              <Stack.Screen
+                name="Cardio"
+                component={Cardio}
+                options={getStyledHeader("Cardio")}
               />
               <Stack.Screen
                 name="RegisterMetricsForm"
