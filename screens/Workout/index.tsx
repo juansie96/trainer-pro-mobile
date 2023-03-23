@@ -18,7 +18,8 @@ const WorkoutScreen = ({ route }: { route: any }) => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation<any>();
   const [isCompleting, setIsCompleting] = useState(false);
-  const { user } = useUser();
+  const [isCompleted, setIsCompleted] = useState(false);
+  const { user, fetchUserData } = useUser();
 
   useEffect(() => {
     setLoading(true);
@@ -39,10 +40,12 @@ const WorkoutScreen = ({ route }: { route: any }) => {
 
     try {
       await updateDoc<Client>(docRef, { tasks: newTasks });
+      await fetchUserData();
     } catch (error) {
       console.error(error);
     } finally {
       setIsCompleting(false);
+      setIsCompleted(true);
     }
   };
 
@@ -82,11 +85,13 @@ const WorkoutScreen = ({ route }: { route: any }) => {
           type="solid"
           style={{ width: 200, marginTop: 15 }}
           onPress={handleCompleteTask}
-          disabled={task.completed.value}
+          disabled={task.completed.value || isCompleted}
         >
           {isCompleting ? (
             <ActivityIndicator size="large" />
           ) : task.completed.value ? (
+            "Tarea completada"
+          ) : task.completed.value || isCompleted ? (
             "Tarea completada"
           ) : (
             "Completar tarea"

@@ -9,11 +9,24 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Octicons from "@expo/vector-icons/Octicons";
 import Evolution from "./screens/Evolution";
+import { Image } from "react-native";
+import TPText from "./components/atoms/TPText";
 
 const Tab = createBottomTabNavigator();
 
 const headerOptions = {
-  headerTitle: "TP",
+  headerTitle: () => (
+    <div style={{ display: "flex", alignItems: "center" }}>
+      <Image
+        source={require("./assets/images/tp-logo.svg")}
+        style={{ width: 40, height: 25 }}
+      />
+      <TPText fs={18} color="#fff" ml={10}>
+        Trainer Pro
+      </TPText>
+    </div>
+  ),
+
   headerTitleStyle: {
     color: colors.white[100],
   },

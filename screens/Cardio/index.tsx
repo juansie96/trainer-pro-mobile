@@ -73,7 +73,7 @@ const Cardio = ({ route }: { route: any }) => {
           type="solid"
           style={{ width: 200, marginTop: 15 }}
           onPress={handleCompleteTask}
-          disabled={task?.completed?.value}
+          disabled={task.completed?.value || isTaskCompleted}
         >
           {isCompleting ? (
             <ActivityIndicator size="large" />

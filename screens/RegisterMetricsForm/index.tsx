@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { Button, Icon } from "@rneui/base";
+import { Button } from "@rneui/base";
 import { addDoc } from "firebase/firestore";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -7,7 +7,6 @@ import { ActivityIndicator, ScrollView, View } from "react-native";
 import DateTimePicker from "../../components/atoms/DateTimePicker";
 import SectionText from "../../components/atoms/SectionText";
 import TPText from "../../components/atoms/TPText";
-import TransparentOverlay from "../../components/atoms/TransparentOverlay";
 import { metricsRef } from "../../firebase/refs";
 import { useUser } from "../../hooks";
 import { UserMetrics } from "../../types/metrics";
@@ -43,7 +42,7 @@ const InputSection = ({
   </div>
 );
 
-const RegisterMetricsForm = ({ route }: { route: any }) => {
+const RegisterMetricsForm = () => {
   const [selectedDate, setSelectedDate] = useState(new Date(Date.now()));
   const [isSaving, setIsSaving] = useState(false);
   const navigation = useNavigation();
@@ -53,6 +52,7 @@ const RegisterMetricsForm = ({ route }: { route: any }) => {
       weight: undefined,
       fat: undefined,
       neck: undefined,
+      chest: undefined,
       shoulders: undefined,
       biceps: undefined,
       forearm: undefined,
@@ -80,8 +80,6 @@ const RegisterMetricsForm = ({ route }: { route: any }) => {
     }
   };
 
-  // if (isSaving) return <TransparentOverlay />;
-
   return (
     <ScrollView
       contentContainerStyle={{ paddingHorizontal: 15, paddingBottom: 20 }}
@@ -103,6 +101,12 @@ const RegisterMetricsForm = ({ route }: { route: any }) => {
         label="Grasa corporal"
         inputKey="fat"
         unit="%"
+        register={register}
+      />
+      <InputSection
+        label="Pecho"
+        inputKey="chest"
+        unit="cm"
         register={register}
       />
       <InputSection
